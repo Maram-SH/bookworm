@@ -1,24 +1,34 @@
+import { useState } from "react"
+
 function BookCard(props) {
+  const [progress, setProgress] = useState(props.progress)
+
   return (
     <div>
-      <p>{props.title}</p>
+      <h2>{props.title}</h2>
       <p>{props.author}</p>
-      <p>{props.progress}% complete</p>
+
+      <p>{progress}% complete</p>
 
       <div
         style={{
           width: "200px",
           height: "10px",
           backgroundColor: "#ddd"
-        }}>
+        }}
+      >
         <div
           style={{
-            width: `${props.progress}%`,
+            width: `${progress}%`,
             height: "100%",
             backgroundColor: "green"
           }}
         ></div>
       </div>
+
+      <button onClick={() => setProgress(progress + 1)}>
+        +1%
+      </button>
 
       <p>Currently Reading</p>
     </div>
