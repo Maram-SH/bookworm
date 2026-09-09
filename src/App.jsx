@@ -4,6 +4,22 @@ function BookCard(props) {
       <p>{props.title}</p>
       <p>{props.author}</p>
       <p>{props.progress}% complete</p>
+
+      <div
+        style={{
+          width: "200px",
+          height: "10px",
+          backgroundColor: "#ddd"
+        }}>
+        <div
+          style={{
+            width: `${props.progress}%`,
+            height: "100%",
+            backgroundColor: "green"
+          }}
+        ></div>
+      </div>
+
       <p>Currently Reading</p>
     </div>
   )
