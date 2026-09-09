@@ -2,6 +2,7 @@ import { useState } from "react"
 
 function BookCard(props) {
   const [progress, setProgress] = useState(props.progress)
+  const [currentPage, setCurrentPage] = useState(Math.round((props.progress / 100) * props.totalPages))
 
   return (
     <div>
@@ -26,8 +27,26 @@ function BookCard(props) {
         ></div>
       </div>
 
-      <button onClick={() => setProgress(progress + 1)}>
-        +1%
+      <input 
+        type="number"
+        value={currentPage}
+        onChange={(event) => setCurrentPage(
+          Number(event.target.value)
+        )}
+      />
+
+      <span> / {props.totalPages} total pages </span>
+
+      <button
+        onClick={() => {
+          const newProgress = Math.round(
+            (currentPage / props.totalPages) * 100
+          )
+
+          setProgress(newProgress)
+        }}
+      >
+        Update Progress
       </button>
 
       <p>Currently Reading</p>
@@ -44,12 +63,14 @@ function App() {
         title="The Hobbit"
         author="J.R.R. Tolkein"
         progress={72}
+        totalPages={310}
       />
 
       <BookCard
         title="Pride and Prejudice"
         author="Jane Austen"
-        progress={38}  
+        progress={38}
+        totalPages={432} 
       />
     </div>
   )
