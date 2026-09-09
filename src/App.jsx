@@ -7,3 +7,14 @@ function BookCard() {
     </div>
   )
 }
+
+function App() {
+  return (
+    <div>
+      <h1>Welcome to Bookworm!</h1>
+      <BookCard />
+    </div>
+  )
+}
+
+export default App
