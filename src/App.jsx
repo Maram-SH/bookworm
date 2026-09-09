@@ -1,8 +1,8 @@
-function BookCard() {
+function BookCard(props) {
   return (
     <div>
-      <p>The Hobbit</p>
-      <p>J.R.R. Tolkein</p>
+      <p>{props.title}</p>
+      <p>{props.author}</p>
       <p>Currently Reading</p>
     </div>
   )
