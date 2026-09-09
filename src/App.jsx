@@ -12,7 +12,16 @@ function App() {
   return (
     <div>
       <h1>Welcome to Bookworm!</h1>
-      <BookCard />
+
+      <BookCard
+        title="The Hobbit"
+        author="J.R.R. Tolkein"      
+      />
+
+      <BookCard
+        title="Pride and Prejudice"
+        author="Jane Austen"      
+      />
     </div>
   )
 }
