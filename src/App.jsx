@@ -3,6 +3,7 @@ function BookCard(props) {
     <div>
       <p>{props.title}</p>
       <p>{props.author}</p>
+      <p>{props.progress}% complete</p>
       <p>Currently Reading</p>
     </div>
   )
@@ -15,12 +16,14 @@ function App() {
 
       <BookCard
         title="The Hobbit"
-        author="J.R.R. Tolkein"      
+        author="J.R.R. Tolkein"
+        progress={72}
       />
 
       <BookCard
         title="Pride and Prejudice"
-        author="Jane Austen"      
+        author="Jane Austen"
+        progress={38}  
       />
     </div>
   )
