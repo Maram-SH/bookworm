@@ -71,23 +71,38 @@ function BookCard(props) {
 }
 
 function App() {
+  const books = [
+    {
+      id: 1,
+      title: "The Hobbit",
+      author: "J.R.R. Tolkien",
+      progress: 72,
+      totalPages: 310
+    },
+    {
+      id: 2,
+      title: "Pride and Prejudice",
+      author: "Jane Austen",
+      progress: 38,
+      totalPages: 432
+    }
+  ]
+
   return (
     <div>
       <h1>Welcome to Bookworm!</h1>
 
-      <BookCard
-        title="The Hobbit"
-        author="J.R.R. Tolkein"
-        progress={72}
-        totalPages={310}
-      />
-
-      <BookCard
-        title="Pride and Prejudice"
-        author="Jane Austen"
-        progress={38}
-        totalPages={432} 
-      />
+      {books.map((book) => {
+        return (
+          <BookCard
+            key={book.id} 
+            title={book.title}
+            author={book.author}
+            progress={book.progress}
+            totalPages={book.totalPages}
+          />
+        )
+      })}
     </div>
   )
 }
