@@ -92,6 +92,8 @@ function App() {
     <div>
       <h1>Welcome to Bookworm!</h1>
 
+      <h2>Currently reading: {books.length} {books.length === 1 ? "book" : "books"}</h2>
+
       {books.map((book) => {
         return (
           <BookCard
