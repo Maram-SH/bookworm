@@ -100,6 +100,14 @@ function App() {
       progress: 38,
       totalPages: 432,
       status: "READING"
+    },
+    {
+      id: 3,
+      title: "The Cruel Prince",
+      author: "Holly Black",
+      progress: 0,
+      totalPages: 380,
+      status: "WANT_TO_READ"
     }
   ])
 
