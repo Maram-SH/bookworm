@@ -1,17 +1,16 @@
 import { useState } from "react"
 
 function BookCard(props) {
-  const [progress, setProgress] = useState(props.progress)
   const [currentPage, setCurrentPage] = useState(Math.round((props.progress / 100) * props.totalPages))
 
   function getPercentMessage() {
-    if (progress < 25) {
+    if (props.progress < 25) {
       return "Just started"
-    } else if (progress < 50) {
+    } else if (props.progress < 50) {
       return "Getting into it"
-    } else if (progress < 75) {
+    } else if (props.progress < 75) {
       return "Halfway there"
-    } else if (progress < 100) {
+    } else if (props.progress < 100) {
       return "Almost finished"
     } else {
       return "Finished!"
@@ -23,7 +22,7 @@ function BookCard(props) {
       <h2>{props.title}</h2>
       <p>{props.author}</p>
 
-      <p>{progress}% complete</p>
+      <p>{props.progress}% complete</p>
 
       <p>{getPercentMessage()}</p>
 
@@ -36,7 +35,7 @@ function BookCard(props) {
       >
         <div
           style={{
-            width: `${progress}%`,
+            width: `${props.progress}%`,
             height: "100%",
             backgroundColor: "green"
           }}
@@ -59,7 +58,7 @@ function BookCard(props) {
             (currentPage / props.totalPages) * 100
           )
 
-          setProgress(newProgress)
+          props.onProgressChange(props.id, newProgress)
         }}
       >
         Update Progress
@@ -71,7 +70,7 @@ function BookCard(props) {
 }
 
 function App() {
-  const books = [
+  const [ books, setBooks ] = useState([
     {
       id: 1,
       title: "The Hobbit",
@@ -86,7 +85,22 @@ function App() {
       progress: 38,
       totalPages: 432
     }
-  ]
+  ])
+
+  function handleProgressChange(id, newProgress) {
+    setBooks(
+      books.map((book) => {
+        if (book.id === id) {
+          return {
+            ...book, 
+            progress: newProgress
+          }
+        }
+
+        return book
+      })
+    ) 
+  }
 
   return (
     <div>
@@ -102,6 +116,8 @@ function App() {
             author={book.author}
             progress={book.progress}
             totalPages={book.totalPages}
+            onProgressChange={handleProgressChange}
+            id={book.id}
           />
         )
       })}
