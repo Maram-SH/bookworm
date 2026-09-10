@@ -17,6 +17,20 @@ function BookCard(props) {
     }
   }
 
+  function getStatusMessage() {
+    if (props.status === "READING") {
+      return "Currently Reading"
+    } else if (props.status === "WANT_TO_READ") {
+      return "Want To Read"
+    } else if (props.status === "FINISHED") {
+      return "Finished"
+    } else if (props.status === "DNF") {
+      return "Did Not Finish"
+    } else {
+      return "ERROR"
+    }
+  }
+
   return (
     <div>
       <h2>{props.title}</h2>
@@ -64,7 +78,7 @@ function BookCard(props) {
         Update Progress
       </button>
 
-      <p>{props.status}</p>
+      <p>{getStatusMessage()}</p>
     </div>
   )
 }
