@@ -4,12 +4,28 @@ function BookCard(props) {
   const [progress, setProgress] = useState(props.progress)
   const [currentPage, setCurrentPage] = useState(Math.round((props.progress / 100) * props.totalPages))
 
+  function getPercentMessage() {
+    if (progress < 25) {
+      return "Just started"
+    } else if (progress < 50) {
+      return "Getting into it"
+    } else if (progress < 75) {
+      return "Halfway there"
+    } else if (progress < 100) {
+      return "Almost finished"
+    } else {
+      return "Finished!"
+    }
+  }
+
   return (
     <div>
       <h2>{props.title}</h2>
       <p>{props.author}</p>
 
       <p>{progress}% complete</p>
+
+      <p>{getPercentMessage()}</p>
 
       <div
         style={{
