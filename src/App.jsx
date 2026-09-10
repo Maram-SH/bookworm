@@ -64,7 +64,7 @@ function BookCard(props) {
         Update Progress
       </button>
 
-      <p>Currently Reading</p>
+      <p>{props.status}</p>
     </div>
   )
 }
@@ -76,14 +76,16 @@ function App() {
       title: "The Hobbit",
       author: "J.R.R. Tolkien",
       progress: 72,
-      totalPages: 310
+      totalPages: 310,
+      status: "READING"
     },
     {
       id: 2,
       title: "Pride and Prejudice",
       author: "Jane Austen",
       progress: 38,
-      totalPages: 432
+      totalPages: 432,
+      status: "READING"
     }
   ])
 
@@ -116,6 +118,7 @@ function App() {
             author={book.author}
             progress={book.progress}
             totalPages={book.totalPages}
+            status={book.status}
             onProgressChange={handleProgressChange}
             id={book.id}
           />
