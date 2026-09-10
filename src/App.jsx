@@ -36,47 +36,51 @@ function BookCard(props) {
       <h2>{props.title}</h2>
       <p>{props.author}</p>
 
-      <p>{props.progress}% complete</p>
+      {props.status === "READING" && (
+        <div>
+          <p>{props.progress}% complete</p>
 
-      <p>{getPercentMessage()}</p>
+          <p>{getPercentMessage()}</p>
 
-      <div
-        style={{
-          width: "200px",
-          height: "10px",
-          backgroundColor: "#ddd"
-        }}
-      >
-        <div
-          style={{
-            width: `${props.progress}%`,
-            height: "100%",
-            backgroundColor: "green"
-          }}
-        ></div>
-      </div>
+          <div
+            style={{
+              width: "200px",
+              height: "10px",
+              backgroundColor: "#ddd"
+            }}
+          >
+            <div
+              style={{
+                width: `${props.progress}%`,
+                height: "100%",
+                backgroundColor: "green"
+              }}
+            ></div>
+          </div>
 
-      <input 
-        type="number"
-        value={currentPage}
-        onChange={(event) => setCurrentPage(
-          Number(event.target.value)
-        )}
-      />
+          <input 
+            type="number"
+            value={currentPage}
+            onChange={(event) => setCurrentPage(
+              Number(event.target.value)
+            )}
+          />
 
-      <span> / {props.totalPages} total pages </span>
+          <span> / {props.totalPages} total pages </span>
 
-      <button
-        onClick={() => {
-          const newProgress = Math.round(
-            (currentPage / props.totalPages) * 100
-          )
+          <button
+            onClick={() => {
+              const newProgress = Math.round(
+                (currentPage / props.totalPages) * 100
+              )
 
-          props.onProgressChange(props.id, newProgress)
-        }}
-      >
-        Update Progress
-      </button>
+              props.onProgressChange(props.id, newProgress)
+            }}
+          >
+            Update Progress
+          </button>
+        </div>
+      )}
 
       <p>{getStatusMessage()}</p>
     </div>
