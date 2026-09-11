@@ -36,7 +36,7 @@ function BookCard(props) {
       <h2>{props.title}</h2>
       <p>{props.author}</p>
 
-      {(props.status === "READING" || props.status === "FINISHED") && (
+      {(props.status === "READING" || props.status === "FINISHED" || props.status === "DNF") && (
         <div>
           <p>{props.progress}% complete</p>
 
