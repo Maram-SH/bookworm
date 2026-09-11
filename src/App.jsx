@@ -89,6 +89,18 @@ function BookCard(props) {
       )}
 
       <p>{getStatusMessage()}</p>
+
+      <select 
+        value={props.status} 
+        onChange={(event) => {
+          props.onStatusChange(props.id, event.target.value)
+        }}
+      >
+        <option value="WANT_TO_READ"></option>
+        <option value="READING"></option>
+        <option value="FINISHED"></option>
+        <option value="DNF"></option>
+      </select>
     </div>
   )
 }
