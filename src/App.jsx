@@ -152,6 +152,21 @@ function App() {
     ) 
   }
 
+  function handleStatusChange(id, newStatus) {
+    setBooks(
+      books.map((book) => {
+        if (book.id === id) {
+          return{
+            ...book,
+            status: newStatus
+          }
+        }
+
+        return book
+      })
+    )
+  }
+
   return (
     <div>
       <h1>Welcome to Bookworm!</h1>
@@ -168,6 +183,7 @@ function App() {
             totalPages={book.totalPages}
             status={book.status}
             onProgressChange={handleProgressChange}
+            onStatusChange={handleStatusChange}
             id={book.id}
           />
         )
