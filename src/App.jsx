@@ -170,7 +170,8 @@ function App() {
         if (book.id === id) {
           return{
             ...book,
-            status: newStatus
+            status: newStatus,
+            progress: newStatus === "FINISHED" ? 100 : book.progress
           }
         }
 
