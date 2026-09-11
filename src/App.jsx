@@ -126,6 +126,14 @@ function App() {
       progress: 100,
       totalPages: 160,
       status: "FINISHED"
+    },
+    {
+      id: 5,
+      title: "The Yellow House",
+      author: "Sarah M. Broom",
+      progress: 45,
+      totalPages: 410,
+      status: "DNF"
     }
   ])
 
