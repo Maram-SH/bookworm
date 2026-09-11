@@ -96,10 +96,10 @@ function BookCard(props) {
           props.onStatusChange(props.id, event.target.value)
         }}
       >
-        <option value="WANT_TO_READ"></option>
-        <option value="READING"></option>
-        <option value="FINISHED"></option>
-        <option value="DNF"></option>
+        <option value="WANT_TO_READ">Want To Read</option>
+        <option value="READING">Reading</option>
+        <option value="FINISHED">Finished</option>
+        <option value="DNF">Did Not Finish</option>
       </select>
     </div>
   )
