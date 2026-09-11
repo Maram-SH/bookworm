@@ -36,11 +36,13 @@ function BookCard(props) {
       <h2>{props.title}</h2>
       <p>{props.author}</p>
 
-      {props.status === "READING" && (
+      {(props.status === "READING" || props.status === "FINISHED") && (
         <div>
           <p>{props.progress}% complete</p>
 
-          <p>{getPercentMessage()}</p>
+          {props.status == "READING" && (
+            <p>{getPercentMessage()}</p>
+          )}
 
           <div
             style={{
@@ -58,27 +60,31 @@ function BookCard(props) {
             ></div>
           </div>
 
-          <input 
-            type="number"
-            value={currentPage}
-            onChange={(event) => setCurrentPage(
-              Number(event.target.value)
-            )}
-          />
+          {props.status === "READING" && (
+            <div>
+              <input 
+                type="number"
+                value={currentPage}
+                onChange={(event) => setCurrentPage(
+                  Number(event.target.value)
+                )}
+              />
 
-          <span> / {props.totalPages} total pages </span>
+              <span> / {props.totalPages} total pages </span>
 
-          <button
-            onClick={() => {
-              const newProgress = Math.round(
-                (currentPage / props.totalPages) * 100
-              )
+              <button
+                onClick={() => {
+                  const newProgress = Math.round(
+                    (currentPage / props.totalPages) * 100
+                  )
 
-              props.onProgressChange(props.id, newProgress)
-            }}
-          >
-            Update Progress
-          </button>
+                  props.onProgressChange(props.id, newProgress)
+                }}
+              >
+                Update Progress
+              </button>
+            </div>
+          )}
         </div>
       )}
 
@@ -112,6 +118,14 @@ function App() {
       progress: 0,
       totalPages: 380,
       status: "WANT_TO_READ"
+    },
+    {
+      id: 4,
+      title: "Bryony and Roses",
+      author: "T. Kingfisher",
+      progress: 100,
+      totalPages: 160,
+      status: "FINISHED"
     }
   ])
 
