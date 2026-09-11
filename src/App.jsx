@@ -186,6 +186,13 @@ function App() {
 
       <h2>Currently reading: {books.length} {books.length === 1 ? "book" : "books"}</h2>
 
+      <form>
+        <input type="text" placeholder="Book title" />
+        <input type="text" placeholder="Author" />
+
+        <button type="submit">Add book</button>
+      </form>
+
       {books.map((book) => {
         return (
           <BookCard
