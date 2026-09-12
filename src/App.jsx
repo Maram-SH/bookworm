@@ -184,7 +184,7 @@ function App() {
   }
 
   function handleAddBook() {
-    if (title !== "" || author !== "") {
+    if (title === "" || author === "") {
       alert(`Title is ${title} and author is ${author}`)
     }
   }
