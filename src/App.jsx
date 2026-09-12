@@ -106,6 +106,9 @@ function BookCard(props) {
 }
 
 function App() {
+  const [ title, setTitle ] = useState("")
+  const [ author, setAuthor ] = useState("")
+
   const [ books, setBooks ] = useState([
     {
       id: 1,
@@ -187,8 +190,8 @@ function App() {
       <h2>Currently reading: {books.length} {books.length === 1 ? "book" : "books"}</h2>
 
       <form>
-        <input type="text" placeholder="Book title" />
-        <input type="text" placeholder="Author" />
+        <input type="text" placeholder="Book title" onChange={setTitle(event.target.value)} />
+        <input type="text" placeholder="Author" onChange={setAuthor(event.target.value)}  />
 
         <button type="submit">Add book</button>
       </form>
