@@ -185,7 +185,18 @@ function App() {
 
   function handleAddBook() {
     if (title !== "" && author !== "") {
-      
+      setBooks(
+        [...books,
+          {
+            id: books[books.length - 1] ? books[books.length - 1].id + 1 : 1,
+            title: title,
+            author: author,
+            progress: 0,
+            totalPages: 100,
+            status: "READING"
+          }
+        ]
+      )
     } else {
       alert("Please fill in the missing field(s).")
     }
