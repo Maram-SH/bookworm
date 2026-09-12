@@ -183,17 +183,23 @@ function App() {
     )
   }
 
+  function handleAddBook() {
+    if (title !== "" || author !== "") {
+      alert(`Title is ${title} and author is ${author}`)
+    }
+  }
+
   return (
     <div>
       <h1>Welcome to Bookworm!</h1>
 
       <h2>Currently reading: {books.length} {books.length === 1 ? "book" : "books"}</h2>
 
-      <form>
+      <form onSubmit={(event) => {event.preventDefault()}}>
         <input type="text" placeholder="Book title" onChange={(event) => setTitle(event.target.value)} />
         <input type="text" placeholder="Author" onChange={(event) => setAuthor(event.target.value)}  />
 
-        <button type="submit">Add book</button>
+        <button type="submit" onClick={() => {handleAddBook()}}>Add book</button>
       </form>
 
       {books.map((book) => {
