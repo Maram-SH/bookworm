@@ -183,7 +183,9 @@ function App() {
     )
   }
 
-  function handleAddBook() {
+  function handleAddBook(event) {
+    event.preventDefault()
+
     if (title !== "" && author !== "") {
       setBooks(
         [...books,
@@ -208,11 +210,11 @@ function App() {
 
       <h2>Currently reading: {books.length} {books.length === 1 ? "book" : "books"}</h2>
 
-      <form onSubmit={(event) => {event.preventDefault()}}>
+      <form onSubmit={handleAddBook}>
         <input type="text" placeholder="Book title" onChange={(event) => setTitle(event.target.value)} />
         <input type="text" placeholder="Author" onChange={(event) => setAuthor(event.target.value)}  />
 
-        <button type="submit" onClick={() => {handleAddBook()}}>Add book</button>
+        <button type="submit">Add book</button>
       </form>
 
       {books.map((book) => {
