@@ -186,6 +186,8 @@ function App() {
   function handleAddBook() {
     if (title === "" || author === "") {
       alert(`Title is ${title} and author is ${author}`)
+    } else {
+      alert("Please fill in the missing field(s).")
     }
   }
 
