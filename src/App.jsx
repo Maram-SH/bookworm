@@ -101,6 +101,8 @@ function BookCard(props) {
         <option value="FINISHED">Finished</option>
         <option value="DNF">Did Not Finish</option>
       </select>
+
+      <button onClick={() => props.onDelete(props.id)}>Delete</button>
     </div>
   )
 }
@@ -209,6 +211,12 @@ function App() {
     }
   }
 
+  function handleDeleteBook(id) {
+    setBooks(
+      books.filter((book) => book.id !== id)
+    )
+  }
+
   return (
     <div>
       <h1>Welcome to Bookworm!</h1>
@@ -243,6 +251,7 @@ function App() {
             status={book.status}
             onProgressChange={handleProgressChange}
             onStatusChange={handleStatusChange}
+            onDelete={handleDeleteBook}
             id={book.id}
           />
         )
