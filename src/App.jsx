@@ -108,6 +108,8 @@ function BookCard(props) {
 function App() {
   const [ title, setTitle ] = useState("")
   const [ author, setAuthor ] = useState("")
+  const [ totalPages, setTotalPages ] = useState("")
+  const [ status, setStatus ] = useState("")
 
   const [ books, setBooks ] = useState([
     {
@@ -216,6 +218,16 @@ function App() {
       <form onSubmit={handleAddBook}>
         <input type="text" placeholder="Book title" onChange={(event) => setTitle(event.target.value)} />
         <input type="text" placeholder="Author" onChange={(event) => setAuthor(event.target.value)}  />
+        <input type="number" placeholder="Total pages" onChange={(event) => setTotalPages(event.target.value)} />
+        <select 
+          value={status} 
+          onChange={(event) => {setStatus(event.target.value)}}
+        >
+          <option value="WANT_TO_READ">Want To Read</option>
+          <option value="READING">Reading</option>
+          <option value="FINISHED">Finished</option>
+          <option value="DNF">Did Not Finish</option>
+        </select>
 
         <button type="submit">Add book</button>
       </form>
