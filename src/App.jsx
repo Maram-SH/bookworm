@@ -191,16 +191,16 @@ function App() {
   function handleAddBook(event) {
     event.preventDefault()
 
-    if (title !== "" && author !== "") {
+    if (title !== "" && author !== "" && totalPages > 0) {
       setBooks(
         [...books,
           {
             id: books[books.length - 1] ? books[books.length - 1].id + 1 : 1,
             title: title,
             author: author,
-            progress: 0,
-            totalPages: 100,
-            status: "READING"
+            progress: status === "FINISHED" ? 100 : 0,
+            totalPages: totalPages,
+            status: status
           }
         ]
       )
