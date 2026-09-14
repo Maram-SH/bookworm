@@ -55,6 +55,7 @@ function BookCard(props) {
           <button
             onClick={() => {
               props.onPagesChange(props.id, newTotalPages)
+              setEditingPages(false)
             }}
           >
             Save Pages
