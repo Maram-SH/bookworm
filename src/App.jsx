@@ -54,7 +54,7 @@ function BookCard(props) {
 
           <button
             onClick={() => {
-              props.onPagesChange(props.id, newTotalPages)
+              props.onPagesChange(props.id, newTotalPages, currentPage)
               setEditingPages(false)
             }}
           >
@@ -244,13 +244,18 @@ function App() {
     )
   }
 
-  function handleChangingPages(id, newTotalPages) {
+  function handleChangingPages(id, newTotalPages, currentPage) {
     setBooks(
       books.map((book) => {
         if (book.id === id) {
+          const newProgress = Math.round(
+            (currentPage / newTotalPages) * 100
+          )
+
           return {
             ...book,
-            totalPages: newTotalPages
+            totalPages: newTotalPages,
+            progress: newProgress
           }
         }
 
