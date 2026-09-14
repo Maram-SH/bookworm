@@ -3,6 +3,7 @@ import { useState } from "react"
 function BookCard(props) {
   const [currentPage, setCurrentPage] = useState(Math.round((props.progress / 100) * props.totalPages))
   const [newTotalPages, setNewTotalPages] = useState(props.totalPages)
+  const [editingPages, setEditingPages] = useState(false)
 
   function getPercentMessage() {
     if (props.progress < 25) {
@@ -37,23 +38,29 @@ function BookCard(props) {
       <h2>{props.title}</h2>
       <p>{props.author}</p>
 
-      <div>
-        <input
-          type="number"
-          value={newTotalPages}
-          onChange={(event) => {
-            setNewTotalPages(Number(event.target.value))
-          }}
-        />
+      <button onClick={() => setEditingPages(true)}>
+        Edit Page Count
+      </button>
 
-        <button
-          onClick={() => {
-            props.onPagesChange(props.id, newTotalPages)
-          }}
-        >
-          Save Pages
-        </button>
-      </div>
+      { editingPages && (
+        <div>
+          <input
+            type="number"
+            value={newTotalPages}
+            onChange={(event) => {
+              setNewTotalPages(Number(event.target.value))
+            }}
+          />
+
+          <button
+            onClick={() => {
+              props.onPagesChange(props.id, newTotalPages)
+            }}
+          >
+            Save Pages
+          </button>
+        </div>
+      )}
 
       {(props.status === "READING" || props.status === "FINISHED" || props.status === "DNF") && (
         <div>
