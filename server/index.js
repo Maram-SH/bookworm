@@ -65,6 +65,10 @@ app.patch("/api/books/:id", (req, res) => {
 
   if (req.body.status !== undefined) {
     book.status = req.body.status
+
+    if (req.body.status === "FINISHED") {
+      book.progress = 100
+    }
   }
 
   res.json(book)
