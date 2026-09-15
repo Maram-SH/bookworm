@@ -50,6 +50,26 @@ app.post("/api/books", (req, res) => {
   res.status(201).json(newBook)
 })
 
+app.patch("/api/books/:id", (res, req) => {
+  const id = Number(req.params.id)
+
+  const book = books.find((book) => book.id === id)
+
+  if (!book) {
+    return res.status(404).json({ error: "Book not found" })
+  }
+
+  if (req.body.progress !== undefined) {
+    book.progress = req.body.progress
+  }
+
+  if (req.body.status !== undefined) {
+    book.status = req.body.status
+  }
+
+  res.json(book)
+})
+
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`)
 });
