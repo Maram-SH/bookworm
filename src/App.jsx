@@ -8,11 +8,6 @@ import AddBook from "./pages/AddBook"
 import "./App.css"
 
 function App() {
-  const [ title, setTitle ] = useState("")
-  const [ author, setAuthor ] = useState("")
-  const [ totalPages, setTotalPages ] = useState("")
-  const [ status, setStatus ] = useState("READING")
-
   const [ books, setBooks ] = useState([
     {
       id: 1,
@@ -98,11 +93,6 @@ function App() {
     }
 
     setBooks([...books, newBook])
-
-    setTitle("")
-    setAuthor("")
-    setTotalPages("")
-    setStatus("READING")
   }
 
   function handleDeleteBook(id) {
