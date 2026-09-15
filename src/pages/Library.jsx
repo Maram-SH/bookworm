@@ -5,13 +5,18 @@ function Library(props) {
     <div>
       <h1>Library</h1>
 
-      <BookList
-        books={props.books}
-        onProgressChange={props.onProgressChange}
-        onStatusChange={props.onStatusChange}
-        onDelete={props.onDelete}
-        onPagesChange={props.onPagesChange}
-      />
+      {props.books.length === 0 ? 
+        (
+          <p>Your library is empty. Head to Add Book to fill your library.</p>
+        ) : 
+        (<BookList
+          books={props.books}
+          onProgressChange={props.onProgressChange}
+          onStatusChange={props.onStatusChange}
+          onDelete={props.onDelete}
+          onPagesChange={props.onPagesChange}
+        />)
+      }
     </div>
   )
 }
