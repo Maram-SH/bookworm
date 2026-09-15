@@ -54,8 +54,15 @@ function BookCard(props) {
 
           <button
             onClick={() => {
-              props.onPagesChange(props.id, newTotalPages, currentPage)
-              setEditingPages(false)
+              const success = props.onPagesChange(
+                props.id,
+                newTotalPages,
+                currentPage
+              )
+
+              if (success) {
+                setEditingPages(false)
+              }
             }}
           >
             Save Pages
@@ -245,6 +252,11 @@ function App() {
   }
 
   function handleChangingPages(id, newTotalPages, currentPage) {
+    if (newTotalPages < currentPage) {
+      alert("Total pages can't be less than the current page.")
+      return
+    }
+
     setBooks(
       books.map((book) => {
         if (book.id === id) {
@@ -262,6 +274,8 @@ function App() {
         return book
       })
     )
+
+    return true
   }
 
   return (
