@@ -283,7 +283,21 @@ function App() {
     <div>
       <h1>Welcome to Bookworm!</h1>
 
-      <h2>Currently reading: {books.length} {books.length === 1 ? "book" : "books"}</h2>
+      <h2>
+        Currently reading: {books.filter((book) => book.status === "READING").length} {books.filter((book) => book.status === "READING").length === 1 ? "book" : "books"}
+      </h2>
+
+      <h2>
+        Want to read: {books.filter((book) => book.status === "WANT_TO_READ").length} {books.filter((book) => book.status === "WANT_TO_READ").length === 1 ? "book" : "books"}
+      </h2>
+
+      <h2>
+        Finished: {books.filter((book) => book.status === "FINISHED").length} {books.filter((book) => book.status === "FINISHED").length === 1 ? "book" : "books"}
+      </h2>
+
+      <h2>
+        Did not finish: {books.filter((book) => book.status === "DNF").length} {books.filter((book) => book.status === "DNF").length === 1 ? "book" : "books"}
+      </h2>
 
       <form onSubmit={handleAddBook}>
         <input type="text" placeholder="Book title" onChange={(event) => setTitle(event.target.value)} value={title} />
