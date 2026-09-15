@@ -11,13 +11,19 @@ const PORT = 3000;
 let books = [
   {
     id: 1,
-    title: "Pride and Prejudice",
-    author: "Jane Austen"
+    title: "The Hobbit",
+    author: "J.R.R. Tolkien",
+    progress: 72,
+    totalPages: 310,
+    status: "READING"
   },
   {
     id: 2,
-    title: "The Hobbit",
-    author: "J.R.R. Tolkien"
+    title: "Pride and Prejudice",
+    author: "Jane Austen",
+    progress: 38,
+    totalPages: 432,
+    status: "READING"
   }
 ]
 
