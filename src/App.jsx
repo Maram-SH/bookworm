@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom"
 
 import Dashboard from "./pages/Dashboard"
@@ -50,6 +50,14 @@ function App() {
       status: "DNF"
     }
   ])
+
+  useEffect(() => {
+    fetch("http://localhost:3000/api/books")
+    .then((response) => response.json())
+    .then((data) => {
+      setBooks(data)
+    })
+  }, [])
 
   function handleProgressChange(id, newProgress) {
     setBooks(
