@@ -74,7 +74,7 @@ function BookCard(props) {
         <div>
           <p>{props.progress}% complete</p>
 
-          {props.status == "READING" && (
+          {props.status === "READING" && (
             <p>{getPercentMessage()}</p>
           )}
 
