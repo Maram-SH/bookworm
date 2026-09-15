@@ -1,7 +1,9 @@
 import { useState } from "react"
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom"
+
 import Dashboard from "./pages/Dashboard"
 import Library from "./pages/Library"
+import AddBook from "./pages/AddBook"
 
 import "./App.css"
 
@@ -148,6 +150,7 @@ function App() {
       <nav>
         <Link to="/">Dashboard</Link>
         <Link to="/library">Library</Link>
+        <Link to="/add_book">Add Book</Link>
       </nav>
 
       <Routes>
@@ -166,6 +169,10 @@ function App() {
               onPagesChange={handleChangingPages}
             />
           } 
+        />
+        <Route 
+          path="/add_book" 
+          element={<AddBook />} 
         />
       </Routes>
     </BrowserRouter>
