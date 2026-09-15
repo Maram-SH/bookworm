@@ -1,5 +1,8 @@
 import { useState } from "react"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
+import Dashboard from "./pages/Dashboard"
+import Library from "./pages/Library"
+
 import "./App.css"
 
 function BookCard(props) {
@@ -307,55 +310,10 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div>
-        <h1>Welcome to Bookworm!</h1>
-
-        <div className="stats-container">
-          {
-            stats.map((stat) => (
-              <div className="stat-card" key={stat.label}>
-                <h2>{stat.count} {stat.count === 1 ? "book" : "books"}</h2>
-                <p>{stat.label}</p>
-              </div>
-            ))
-          }
-        </div>
-
-        <form onSubmit={handleAddBook}>
-          <input type="text" placeholder="Book title" onChange={(event) => setTitle(event.target.value)} value={title} />
-          <input type="text" placeholder="Author" onChange={(event) => setAuthor(event.target.value)} value={author}  />
-          <input type="number" placeholder="Total pages" onChange={(event) => setTotalPages(Number(event.target.value))} value={totalPages} />
-          <select 
-            value={status} 
-            onChange={(event) => {setStatus(event.target.value)}}
-          >
-            <option value="WANT_TO_READ">Want To Read</option>
-            <option value="READING">Reading</option>
-            <option value="FINISHED">Finished</option>
-            <option value="DNF">Did Not Finish</option>
-          </select>
-
-          <button type="submit">Add book</button>
-        </form>
-
-        {books.map((book) => {
-          return (
-            <BookCard
-              key={book.id} 
-              title={book.title}
-              author={book.author}
-              progress={book.progress}
-              totalPages={book.totalPages}
-              status={book.status}
-              onProgressChange={handleProgressChange}
-              onStatusChange={handleStatusChange}
-              onDelete={handleDeleteBook}
-              onPagesChange={handleChangingPages}
-              id={book.id}
-            />
-          )
-        })}
-      </div>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/library" element={<Library />} />
+      </Routes>
     </BrowserRouter>
   )
 }
