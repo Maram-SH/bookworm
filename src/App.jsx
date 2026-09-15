@@ -1,4 +1,5 @@
 import { useState } from "react"
+import "./App.css"
 
 function BookCard(props) {
   const [currentPage, setCurrentPage] = useState(Math.round((props.progress / 100) * props.totalPages))
@@ -307,10 +308,10 @@ function App() {
     <div>
       <h1>Welcome to Bookworm!</h1>
 
-      <div>
+      <div className="stats-container">
         {
           stats.map((stat) => (
-            <div key={stat.label}>
+            <div className="stat-card" key={stat.label}>
               <h2>{stat.count} {stat.count === 1 ? "book" : "books"}</h2>
               <p>{stat.label}</p>
             </div>
