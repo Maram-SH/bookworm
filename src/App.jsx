@@ -91,16 +91,18 @@ function App() {
   }
 
   function handleAddBook(bookdata) {
-    const newBook = {
-      id: books[books.length - 1] ? books[books.length - 1].id + 1 : 1,
-      title: bookdata.title.trim(),
-      author: bookdata.author.trim(),
-      progress: bookdata.status === "FINISHED" ? 100 : 0,
-      totalPages: Number(bookdata.totalPages),
-      status: bookdata.status
-    }
-
-    setBooks([...books, newBook])
+    fetch("http://localhost:3000/api/books", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json" 
+      },
+      body: JSON.stringify(bookdata)
+    })
+    .then((response) => response.json())
+    .then((newBook) => {
+      console.log("NEW BOOK FROM SERVER:", newBook)
+      setBooks([...books, newBook])
+    })
   }
 
   function handleDeleteBook(id) {

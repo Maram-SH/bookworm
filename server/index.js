@@ -39,7 +39,10 @@ app.post("/api/books", (req, res) => {
   const newBook = {
     id: books.length + 1,
     title: req.body.title,
-    author: req.body.author
+    author: req.body.author,
+    progress: req.body.status === "FINISHED" ? 100 : 0,
+    totalPages: req.body.totalPages,
+    status: req.body.status
   };
 
   books.push(newBook);
