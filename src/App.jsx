@@ -123,9 +123,15 @@ function App() {
   }
 
   function handleDeleteBook(id) {
-    setBooks(
-      books.filter((book) => book.id !== id)
-    )
+    fetch(`http://localhost:3000/api/books/${id}`, {
+      method: "DELETE",
+    })
+    .then((response) => response.json())
+    .then(() => {
+      setBooks(
+        books.filter(book => book.id !== id)
+      )
+    })
   }
 
   function handleChangingPages(id, newTotalPages, currentPage) {
