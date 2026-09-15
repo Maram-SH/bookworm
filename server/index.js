@@ -74,6 +74,20 @@ app.patch("/api/books/:id", (req, res) => {
   res.json(book)
 })
 
+app.delete("/api/books/:id", (req, res) => {
+  const id = Number(req.params.id)
+
+  const bookExists = books.some((book) => book.id === id)
+
+  if (!bookExists) {
+    return res.status(404).json({ error: "Book not found" })
+  }
+
+  books = books.filter((book) => book.id !== id)
+
+  res.json({ message: "Book deleted successfully" })
+})
+
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`)
 });
