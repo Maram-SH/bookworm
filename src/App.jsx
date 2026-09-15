@@ -145,7 +145,7 @@ function App() {
   const [ title, setTitle ] = useState("")
   const [ author, setAuthor ] = useState("")
   const [ totalPages, setTotalPages ] = useState("")
-  const [ status, setStatus ] = useState("")
+  const [ status, setStatus ] = useState("READING")
 
   const [ books, setBooks ] = useState([
     {
@@ -227,22 +227,26 @@ function App() {
   function handleAddBook(event) {
     event.preventDefault()
 
-    if (title !== "" && author !== "" && totalPages > 0) {
-      setBooks(
-        [...books,
-          {
-            id: books[books.length - 1] ? books[books.length - 1].id + 1 : 1,
-            title: title,
-            author: author,
-            progress: status === "FINISHED" ? 100 : 0,
-            totalPages: totalPages,
-            status: status
-          }
-        ]
-      )
-    } else {
-      alert("Please fill in the missing field(s).")
+    if (title.trim() === "" || author.trim() === "" || totalPages <= 0) {
+      alert("Please fill in all fields correctly.")
+      return
     }
+
+    const newBook = {
+      id: books[books.length - 1] ? books[books.length - 1].id + 1 : 1,
+      title: title.trim(),
+      author: author.trim(),
+      progress: status === "FINISHED" ? 100 : 0,
+      totalPages: Number(totalPages),
+      status: status
+    }
+
+    setBooks([...books, newBook])
+
+    setTitle("")
+    setAuthor("")
+    setTotalPages("")
+    setStatus("READING")
   }
 
   function handleDeleteBook(id) {
@@ -285,9 +289,9 @@ function App() {
       <h2>Currently reading: {books.length} {books.length === 1 ? "book" : "books"}</h2>
 
       <form onSubmit={handleAddBook}>
-        <input type="text" placeholder="Book title" onChange={(event) => setTitle(event.target.value)} />
-        <input type="text" placeholder="Author" onChange={(event) => setAuthor(event.target.value)}  />
-        <input type="number" placeholder="Total pages" onChange={(event) => setTotalPages(event.target.value)} />
+        <input type="text" placeholder="Book title" onChange={(event) => setTitle(event.target.value)} value={title} />
+        <input type="text" placeholder="Author" onChange={(event) => setAuthor(event.target.value)} value={author}  />
+        <input type="number" placeholder="Total pages" onChange={(event) => setTotalPages(Number(event.target.value))} value={totalPages} />
         <select 
           value={status} 
           onChange={(event) => {setStatus(event.target.value)}}
