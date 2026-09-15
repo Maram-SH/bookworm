@@ -279,25 +279,44 @@ function App() {
     return true
   }
 
+  const readingCount = books.filter((book) => book.status === "READING").length
+  const tbrCount = books.filter((book) => book.status === "WANT_TO_READ").length
+  const finishedCount = books.filter((book) => book.status === "FINISHED").length
+  const dnfCount = books.filter((book) => book.status === "DNF").length
+
+  const stats = [
+    {
+      label: "Currently reading",
+      count: readingCount
+    },
+    {
+      label: "Want to read",
+      count: tbrCount
+    },
+    {
+      label: "Finished",
+      count: finishedCount
+    },
+    {
+      label: "Did not finish",
+      count: dnfCount
+    }
+  ]
+
   return (
     <div>
       <h1>Welcome to Bookworm!</h1>
 
-      <h2>
-        Currently reading: {books.filter((book) => book.status === "READING").length} {books.filter((book) => book.status === "READING").length === 1 ? "book" : "books"}
-      </h2>
-
-      <h2>
-        Want to read: {books.filter((book) => book.status === "WANT_TO_READ").length} {books.filter((book) => book.status === "WANT_TO_READ").length === 1 ? "book" : "books"}
-      </h2>
-
-      <h2>
-        Finished: {books.filter((book) => book.status === "FINISHED").length} {books.filter((book) => book.status === "FINISHED").length === 1 ? "book" : "books"}
-      </h2>
-
-      <h2>
-        Did not finish: {books.filter((book) => book.status === "DNF").length} {books.filter((book) => book.status === "DNF").length === 1 ? "book" : "books"}
-      </h2>
+      <div>
+        {
+          stats.map((stat) => (
+            <div key={stat.label}>
+              <h2>{stat.count} {stat.count === 1 ? "book" : "books"}</h2>
+              <p>{stat.label}</p>
+            </div>
+          ))
+        }
+      </div>
 
       <form onSubmit={handleAddBook}>
         <input type="text" placeholder="Book title" onChange={(event) => setTitle(event.target.value)} value={title} />
