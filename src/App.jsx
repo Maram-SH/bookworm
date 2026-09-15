@@ -87,21 +87,14 @@ function App() {
     )
   }
 
-  function handleAddBook(event) {
-    event.preventDefault()
-
-    if (title.trim() === "" || author.trim() === "" || totalPages <= 0) {
-      alert("Please fill in all fields correctly.")
-      return
-    }
-
+  function handleAddBook(bookdata) {
     const newBook = {
       id: books[books.length - 1] ? books[books.length - 1].id + 1 : 1,
-      title: title.trim(),
-      author: author.trim(),
-      progress: status === "FINISHED" ? 100 : 0,
-      totalPages: Number(totalPages),
-      status: status
+      title: bookdata.title.trim(),
+      author: bookdata.author.trim(),
+      progress: bookdata.status === "FINISHED" ? 100 : 0,
+      totalPages: Number(bookdata.totalPages),
+      status: bookdata.status
     }
 
     setBooks([...books, newBook])
@@ -172,7 +165,7 @@ function App() {
         />
         <Route 
           path="/add_book" 
-          element={<AddBook />} 
+          element={<AddBook onAddBook={handleAddBook} />} 
         />
       </Routes>
     </BrowserRouter>
