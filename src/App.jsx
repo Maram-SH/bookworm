@@ -284,35 +284,17 @@ function App() {
     return true
   }
 
-  const readingCount = books.filter((book) => book.status === "READING").length
-  const tbrCount = books.filter((book) => book.status === "WANT_TO_READ").length
-  const finishedCount = books.filter((book) => book.status === "FINISHED").length
-  const dnfCount = books.filter((book) => book.status === "DNF").length
-
-  const stats = [
-    {
-      label: "Currently reading",
-      count: readingCount
-    },
-    {
-      label: "Want to read",
-      count: tbrCount
-    },
-    {
-      label: "Finished",
-      count: finishedCount
-    },
-    {
-      label: "Did not finish",
-      count: dnfCount
-    }
-  ]
-
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/library" element={<Library />} />
+        <Route 
+          path="/" 
+          element={<Dashboard books={books} />} 
+        />
+        <Route 
+          path="/library" 
+          element={<Library />} 
+        />
       </Routes>
     </BrowserRouter>
   )
