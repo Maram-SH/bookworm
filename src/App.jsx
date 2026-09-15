@@ -130,7 +130,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <nav>
+      <nav className="navbar">
         <Link to="/">Dashboard</Link>
         <Link to="/library">Library</Link>
         <Link to="/add_book">Add Book</Link>
