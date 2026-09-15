@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom"
 import Dashboard from "./pages/Dashboard"
 import Library from "./pages/Library"
 
@@ -145,6 +145,11 @@ function App() {
 
   return (
     <BrowserRouter>
+      <nav>
+        <Link to="/">Dashboard</Link>
+        <Link to="/library">Library</Link>
+      </nav>
+
       <Routes>
         <Route 
           path="/" 
