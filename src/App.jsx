@@ -60,18 +60,27 @@ function App() {
   }, [])
 
   function handleProgressChange(id, newProgress) {
-    setBooks(
-      books.map((book) => {
-        if (book.id === id) {
-          return {
-            ...book, 
-            progress: newProgress
-          }
-        }
-
-        return book
+    fetch(`http://localhost:3000/api/books/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        progress: newProgress
       })
-    ) 
+    })
+    .then((response) => response.json())
+    .then((updatedBook) => {
+      setBooks(
+        books.map((book) => {
+          if (book.id === id) {
+            return updatedBook
+          }
+
+          return book
+        })
+      )
+    })
   }
 
   function handleStatusChange(id, newStatus) {

@@ -50,7 +50,7 @@ app.post("/api/books", (req, res) => {
   res.status(201).json(newBook)
 })
 
-app.patch("/api/books/:id", (res, req) => {
+app.patch("/api/books/:id", (req, res) => {
   const id = Number(req.params.id)
 
   const book = books.find((book) => book.id === id)
