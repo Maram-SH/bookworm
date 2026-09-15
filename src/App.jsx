@@ -219,9 +219,6 @@ function App() {
         return book
       })
     )
-
-    setAuthor("")
-    setTitle("")
   }
 
   function handleAddBook(event) {
