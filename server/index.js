@@ -13,7 +13,7 @@ let books = [
     id: 1,
     title: "The Hobbit",
     author: "J.R.R. Tolkien",
-    progress: 72,
+    currentPage: 223,
     totalPages: 310,
     status: "READING"
   },
@@ -21,7 +21,7 @@ let books = [
     id: 2,
     title: "Pride and Prejudice",
     author: "Jane Austen",
-    progress: 38,
+    currentPage: 164,
     totalPages: 432,
     status: "READING"
   }
