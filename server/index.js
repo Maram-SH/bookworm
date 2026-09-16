@@ -36,12 +36,14 @@ app.get("/api/books", (req, res) => {
 });
 
 app.post("/api/books", (req, res) => {
+  const totalPages = Number(req.body.totalPages)
+
   const newBook = {
     id: books.length + 1,
     title: req.body.title,
     author: req.body.author,
-    progress: req.body.status === "FINISHED" ? 100 : 0,
-    totalPages: req.body.totalPages,
+    currentPage: req.body.status === "FINISHED" ? totalPages : 0,
+    totalPages: totalPages,
     status: req.body.status
   };
 
@@ -59,15 +61,15 @@ app.patch("/api/books/:id", (req, res) => {
     return res.status(404).json({ error: "Book not found" })
   }
 
-  if (req.body.progress !== undefined) {
-    book.progress = req.body.progress
+  if (req.body.currentPage !== undefined) {
+    book.currentPage = req.body.currentPage
   }
 
   if (req.body.status !== undefined) {
     book.status = req.body.status
 
     if (req.body.status === "FINISHED") {
-      book.progress = 100
+      book.currentPage = req.body.totalPages
     }
   }
 

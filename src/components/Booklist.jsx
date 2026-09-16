@@ -8,7 +8,8 @@ function BookList(props) {
           key={book.id}
           title={book.title}
           author={book.author}
-          progress={book.progress}
+          currentPage={book.currentPage}
+          progress={Math.round((book.currentPage / book.totalPages) * 100)}
           totalPages={book.totalPages}
           status={book.status}
           id={book.id}

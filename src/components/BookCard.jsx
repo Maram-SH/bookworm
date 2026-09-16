@@ -1,15 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function BookCard(props) {
-  const [currentPage, setCurrentPage] = useState(Math.round((props.progress / 100) * props.totalPages))
-  const [newTotalPages, setNewTotalPages] = useState(props.totalPages)
+  const [currentPage, setCurrentPage] = useState(props.currentPage ?? 0)
+  const [newTotalPages, setNewTotalPages] = useState(props.totalPages ?? 0)
   const [editingPages, setEditingPages] = useState(false)
-
-  useEffect(() => {
-    setCurrentPage(
-      Math.round((props.progress / 100) * props.totalPages)
-    )
-  }, [props.progress, props.totalPages])
 
   function getPercentMessage() {
     if (props.progress < 25) {
@@ -114,11 +108,7 @@ function BookCard(props) {
 
               <button
                 onClick={() => {
-                  const newProgress = Math.round(
-                    (currentPage / props.totalPages) * 100
-                  )
-
-                  props.onProgressChange(props.id, newProgress)
+                  props.onProgressChange(props.id, currentPage)
                 }}
               >
                 Update Progress

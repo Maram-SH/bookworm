@@ -8,65 +8,25 @@ import AddBook from "./pages/AddBook"
 import "./App.css"
 
 function App() {
-  const [ books, setBooks ] = useState([
-    {
-      id: 1,
-      title: "The Hobbit",
-      author: "J.R.R. Tolkien",
-      progress: 72,
-      totalPages: 310,
-      status: "READING"
-    },
-    {
-      id: 2,
-      title: "Pride and Prejudice",
-      author: "Jane Austen",
-      progress: 38,
-      totalPages: 432,
-      status: "READING"
-    },
-    {
-      id: 3,
-      title: "The Cruel Prince",
-      author: "Holly Black",
-      progress: 0,
-      totalPages: 380,
-      status: "WANT_TO_READ"
-    },
-    {
-      id: 4,
-      title: "Bryony and Roses",
-      author: "T. Kingfisher",
-      progress: 100,
-      totalPages: 160,
-      status: "FINISHED"
-    },
-    {
-      id: 5,
-      title: "The Yellow House",
-      author: "Sarah M. Broom",
-      progress: 45,
-      totalPages: 410,
-      status: "DNF"
-    }
-  ])
+  const [ books, setBooks ] = useState([])
 
   useEffect(() => {
     fetch("http://localhost:3000/api/books")
     .then((response) => response.json())
     .then((data) => {
+      console.log("BOOKS FROM SERVER: ", data)
       setBooks(data)
     })
   }, [])
 
-  function handleProgressChange(id, newProgress) {
+  function handleProgressChange(id, newCurrentPage) {
     fetch(`http://localhost:3000/api/books/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        progress: newProgress
+        currentPage: newCurrentPage
       })
     })
     .then((response) => response.json())
@@ -143,14 +103,9 @@ function App() {
     setBooks(
       books.map((book) => {
         if (book.id === id) {
-          const newProgress = Math.round(
-            (currentPage / newTotalPages) * 100
-          )
-
           return {
             ...book,
             totalPages: newTotalPages,
-            progress: newProgress
           }
         }
 
