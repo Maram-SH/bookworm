@@ -14,7 +14,6 @@ function App() {
     fetch("http://localhost:3000/api/books")
     .then((response) => response.json())
     .then((data) => {
-      console.log("BOOKS FROM SERVER: ", data)
       setBooks(data)
     })
   }, [])
@@ -77,7 +76,6 @@ function App() {
     })
     .then((response) => response.json())
     .then((newBook) => {
-      console.log("NEW BOOK FROM SERVER:", newBook)
       setBooks([...books, newBook])
     })
   }
