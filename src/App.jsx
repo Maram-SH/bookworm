@@ -97,7 +97,7 @@ function App() {
   function handleChangingPages(id, newTotalPages, currentPage) {
     if (newTotalPages < currentPage) {
       alert("Total pages can't be less than the current page.")
-      return
+      return false
     }
 
     fetch(`http://localhost:3000/api/books/${id}`, {
@@ -121,6 +121,8 @@ function App() {
         })
       )
     })
+
+    return true
   }
 
   return (
