@@ -1,5 +1,14 @@
 import express from "express"
 import cors from "cors"
+import { Pool } from "pg";
+
+const pool = new Pool({
+  user: "postgres",
+  host: "localhost",
+  database: "bookbloom",
+  password: "Maram662012",
+  port: 5432
+})
 
 const app = express();
 
