@@ -65,6 +65,10 @@ app.patch("/api/books/:id", (req, res) => {
     book.currentPage = req.body.currentPage
   }
 
+  if (req.body.totalPages !== undefined) {
+    book.totalPages = req.body.totalPages
+  }
+
   if (req.body.status !== undefined) {
     book.status = req.body.status
 
