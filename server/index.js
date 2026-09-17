@@ -1,6 +1,7 @@
 import express from "express"
 import cors from "cors"
 import { Pool } from "pg"
+import bcrypt from "bcrypt"
 import "dotenv/config"
 
 const pool = new Pool({
@@ -21,6 +22,8 @@ const PORT = 3000;
 app.get("/", (req, res) => {
   res.send("Bookworm API is running!")
 });
+
+// Handling books
 
 app.get("/api/books", async (req, res) => {
   try {
@@ -187,6 +190,79 @@ app.delete("/api/books/:id", async (req, res) => {
     res.status(500).json({ error: "Failed to delete book" })
   }
 });
+
+// Handling users
+
+app.post("/api/register", async (req, res) => {
+  try {
+    const { username, email, password } = req.body
+
+    const passwordHash = await bcrypt.hash(password, 10)
+
+    const result = await pool.query(
+      `INSERT INTO users (username, email, password_hash)
+       VALUES ($1, $2, $3)
+       RETURNING id, username, email`,
+      [username, email, passwordHash]
+    )
+    
+    res.status(201).json(result.row[0])
+  } catch (error) {
+    console.log(error)
+
+    if (error.code = "23505") {
+      res.status(400).json({
+        error: "Username or email already exists"
+      })
+    }
+
+    res.status(500).json({
+      error: "Failed to register user"
+    })
+  }
+})
+
+app.post("/api/login", async (req, res) => {
+  try {
+    const { email, password } = req.body
+
+    const result = await pool.query(
+      "SELECT * FROM users WHERE email = $1",
+      [email]
+    )
+
+    if (result.rows.length === 0) {
+      return res.status(401).json({
+        error: "Invalid email or password"
+      })
+    }
+
+    const user = result.rows[0]
+
+    const passwordMatches = await bcrypt.compare(
+      password,
+      user.password_hash
+    )
+
+    if (!passwordMatches) {
+      return res.status(401).json({
+        error: "Invalid email or password"
+      })
+    }
+
+    res.json({
+      id: user.id,
+      username: user.username,
+      email: user.email,
+    })
+  } catch (error) {
+    console.log(error)
+
+    res.status(500).json({
+      error: "Failed to log in"
+    })
+  }
+})
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`)
