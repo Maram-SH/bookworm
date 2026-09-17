@@ -18,25 +18,6 @@ app.use(express.json());
 
 const PORT = 3000;
 
-let books = [
-  {
-    id: 1,
-    title: "The Hobbit",
-    author: "J.R.R. Tolkien",
-    currentPage: 223,
-    totalPages: 310,
-    status: "READING"
-  },
-  {
-    id: 2,
-    title: "Pride and Prejudice",
-    author: "Jane Austen",
-    currentPage: 164,
-    totalPages: 432,
-    status: "READING"
-  }
-]
-
 app.get("/", (req, res) => {
   res.send("Bookworm API is running!")
 });
