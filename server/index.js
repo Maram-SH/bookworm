@@ -72,7 +72,16 @@ app.post("/api/books", async (req, res) => {
     })
   } catch (error) {
     console.log(error)
-    res.status(500).json({ error: "Failed to add book" })
+    
+    if (error.code === "23514") {
+      return res.status(400).json({
+        error: "Invalid book data"
+      })
+    }
+
+    res.status(500).json({
+      error: "Failed to add book"
+    })
   }
 })
 
@@ -145,7 +154,16 @@ app.patch("/api/books/:id", async (req, res) => {
     })
   } catch (error) {
     console.log(error)
-    res.status(500).json({ error: "Failed to add book" })
+    
+    if (error.code === "23514") {
+      return res.status(400).json({
+        error: "Invalid book data"
+      })
+    }
+
+    res.status(500).json({
+      error: "Failed to update book"
+    })
   }
 })
 
