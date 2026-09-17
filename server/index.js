@@ -1,8 +1,9 @@
+import "dotenv/config"
 import express from "express"
 import cors from "cors"
 import { Pool } from "pg"
 import bcrypt from "bcrypt"
-import "dotenv/config"
+import session from "express-session"
 
 const pool = new Pool({
   user: process.env.DB_USER,
@@ -14,7 +15,19 @@ const pool = new Pool({
 
 const app = express();
 
-app.use(cors())
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false
+  })
+)
+
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true
+}))
+
 app.use(express.json());
 
 const PORT = 3000;
@@ -250,6 +263,8 @@ app.post("/api/login", async (req, res) => {
       })
     }
 
+    req.session.userId = user.id
+
     res.json({
       id: user.id,
       username: user.username,
@@ -262,6 +277,18 @@ app.post("/api/login", async (req, res) => {
       error: "Failed to log in"
     })
   }
+})
+
+app.get("/api/me", (req, res) => {
+  if (!req.session.userId) {
+    return res.status(401).json({
+      error: "Not logged in"
+    })
+  }
+
+  return res.json({
+    userId: req.session.userId
+  })
 })
 
 app.listen(PORT, () => {
