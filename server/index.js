@@ -291,6 +291,22 @@ app.post("/api/login", async (req, res) => {
   }
 })
 
+app.post("/api/logout", (req, res) => {
+  req.session.destroy((error) => {
+    if (error) {
+      console.error(error)
+
+      return res.status(500).json({
+        error: "Failed to log out"
+      })
+    }
+
+    res.json({
+      message: "Logged out successfully"
+    })
+  })
+})
+
 app.get("/api/me", (req, res) => {
   if (!req.session.userId) {
     return res.status(401).json({
