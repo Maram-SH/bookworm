@@ -72,19 +72,26 @@ app.get("/api/books", async (req, res) => {
 
 app.post("/api/books", async (req, res) => {
   try {
+    if (!req.session.userId) {
+      return res.status(401).json({
+        error: "Not logged in"
+      })
+    }
+
     const totalPages = Number(req.body.totalPages)
     const currentPage = req.body.status === "FINISHED" ? totalPages : 0
 
     const result = await pool.query(`
-      INSERT INTO books (title, author, current_page, total_pages, status)
-      VALUES ($1, $2, $3, $4, $5)
+      INSERT INTO books (title, author, current_page, total_pages, status, user_id)
+      VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING *`, 
       [
         req.body.title,
         req.body.author,
         currentPage,
         totalPages,
-        req.body.status
+        req.body.status,
+        req.session.userId
       ]
     )
 
@@ -115,11 +122,17 @@ app.post("/api/books", async (req, res) => {
 
 app.patch("/api/books/:id", async (req, res) => {
   try {
+    if (!req.session.userId) {
+      return res.status(401).json({
+        error: "Not logged in"
+      })
+    }
+
     const id = Number(req.params.id)
 
     const result = await pool.query(
-      "SELECT * FROM books WHERE id = $1",
-      [id]
+      "SELECT * FROM books WHERE id = $1 AND user_id = $2",
+      [id, req.session.userId]
     )
 
     if (result.rows.length === 0) {
@@ -197,11 +210,19 @@ app.patch("/api/books/:id", async (req, res) => {
 
 app.delete("/api/books/:id", async (req, res) => {
   try {
+    if (!req.session.userId) {
+      return res.status(401).json({
+        error: "Not logged in"
+      })
+    }
+
     const id = Number(req.params.id)
 
     const result = await pool.query(
-      "DELETE FROM books WHERE id = $1 RETURNING *",
-      [id]
+      `DELETE FROM books 
+      WHERE id = $1 AND user_id = $2
+      RETURNING *`,
+      [id, req.session.userId]
     )
 
     if (result.rows.length === 0) {

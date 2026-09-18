@@ -23,6 +23,7 @@ function App() {
   function handleProgressChange(id, newCurrentPage) {
     fetch(`http://localhost:3000/api/books/${id}`, {
       method: "PATCH",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json"
       },
@@ -47,6 +48,7 @@ function App() {
   function handleStatusChange(id, newStatus) {
     fetch(`http://localhost:3000/api/books/${id}`, {
       method: "PATCH",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json"
       },
@@ -71,6 +73,7 @@ function App() {
   function handleAddBook(bookdata) {
     fetch("http://localhost:3000/api/books", {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json" 
       },
@@ -85,6 +88,7 @@ function App() {
   function handleDeleteBook(id) {
     fetch(`http://localhost:3000/api/books/${id}`, {
       method: "DELETE",
+      credentials: "include"
     })
     .then((response) => response.json())
     .then(() => {
@@ -102,6 +106,7 @@ function App() {
 
     fetch(`http://localhost:3000/api/books/${id}`, {
       method: "PATCH",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json"
       },
