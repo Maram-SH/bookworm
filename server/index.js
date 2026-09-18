@@ -40,7 +40,19 @@ app.get("/", (req, res) => {
 
 app.get("/api/books", async (req, res) => {
   try {
-    const result = await pool.query("SELECT * FROM books")
+    if (!req.session.userId) {
+      return res.status(401).json({
+        error: "Not logged in"
+      })
+    }
+
+    const result = await pool.query(
+      `SELECT * 
+      FROM books
+      WHERE user_id = $1
+      `,
+      [req.session.userId]
+    )
 
     const books = result.rows.map((book) => ({
       id: book.id,

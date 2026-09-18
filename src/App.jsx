@@ -11,7 +11,9 @@ function App() {
   const [ books, setBooks ] = useState([])
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/books")
+    fetch("http://localhost:3000/api/books", {
+      credentials: "include"
+    })
     .then((response) => response.json())
     .then((data) => {
       setBooks(data)
