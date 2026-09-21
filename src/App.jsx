@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom"
 import Dashboard from "./pages/Dashboard"
 import Library from "./pages/Library"
 import AddBook from "./pages/AddBook"
+import Login from "./pages/Login"
 
 import "./App.css"
 
@@ -136,6 +137,7 @@ function App() {
         <Link to="/">Dashboard</Link>
         <Link to="/library">Library</Link>
         <Link to="/add_book">Add Book</Link>
+        <Link to="/login">Log In</Link>
       </nav>
 
       <Routes>
@@ -159,6 +161,7 @@ function App() {
           path="/add_book" 
           element={<AddBook onAddBook={handleAddBook} />} 
         />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   )
