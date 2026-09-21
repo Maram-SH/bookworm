@@ -252,12 +252,12 @@ app.post("/api/register", async (req, res) => {
       [username, email, passwordHash]
     )
     
-    res.status(201).json(result.row[0])
+    res.status(201).json(result.rows[0])
   } catch (error) {
     console.log(error)
 
-    if (error.code = "23505") {
-      res.status(400).json({
+    if (error.code === "23505") {
+      return res.status(400).json({
         error: "Username or email already exists"
       })
     }

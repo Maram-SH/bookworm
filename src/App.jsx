@@ -5,6 +5,7 @@ import Dashboard from "./pages/Dashboard"
 import Library from "./pages/Library"
 import AddBook from "./pages/AddBook"
 import Login from "./pages/Login"
+import Register from "./pages/Register"
 
 import "./App.css"
 
@@ -138,6 +139,7 @@ function App() {
         <Link to="/library">Library</Link>
         <Link to="/add_book">Add Book</Link>
         <Link to="/login">Log In</Link>
+        <Link to="/register">Register</Link>
       </nav>
 
       <Routes>
@@ -162,6 +164,7 @@ function App() {
           element={<AddBook onAddBook={handleAddBook} />} 
         />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </BrowserRouter>
   )
