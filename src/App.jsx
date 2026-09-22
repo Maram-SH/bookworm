@@ -6,12 +6,14 @@ import Library from "./pages/Library"
 import AddBook from "./pages/AddBook"
 import Login from "./pages/Login"
 import Register from "./pages/Register"
+import ProtectedRoute from "./components/ProtectedRoute"
 
 import "./App.css"
 
 function App() {
   const [ books, setBooks ] = useState([])
   const [ user, setUser ] = useState(null)
+  const [ loadingUser, setLoadingUser ] = useState(true)
 
   useEffect(() => {
     fetch("http://localhost:3000/api/me", {
@@ -28,6 +30,9 @@ function App() {
       setUser(data)
     })
     .catch(error => console.log(error))
+    .finally(() => {
+      setLoadingUser(false)
+    })
   }, [])
 
   useEffect(() => {
@@ -167,25 +172,44 @@ function App() {
       <Routes>
         <Route 
           path="/" 
-          element={<Dashboard books={books} />} 
+          element={
+            <ProtectedRoute
+              user={user}
+              loadingUser={loadingUser}
+            >
+              <Dashboard books={books} />
+            </ProtectedRoute>
+          } 
         />
         <Route 
           path="/library" 
           element={
-            <Library 
-              books={books}
-              onProgressChange={handleProgressChange}
-              onStatusChange={handleStatusChange}
-              onDelete={handleDeleteBook}
-              onPagesChange={handleChangingPages}
-            />
+            <ProtectedRoute
+              user={user}
+              loadingUser={loadingUser}
+            >
+              <Library 
+                books={books}
+                onProgressChange={handleProgressChange}
+                onStatusChange={handleStatusChange}
+                onDelete={handleDeleteBook}
+                onPagesChange={handleChangingPages}
+              />
+            </ProtectedRoute>
           } 
         />
         <Route 
           path="/add_book" 
-          element={<AddBook onAddBook={handleAddBook} />} 
+          element={
+            <ProtectedRoute
+              user={user}
+              loadingUser={loadingUser}
+            >
+              <AddBook onAddBook={handleAddBook} />
+            </ProtectedRoute>
+          } 
         />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login onLogin={setUser} />} />
         <Route path="/register" element={<Register />} />
       </Routes>
     </BrowserRouter>

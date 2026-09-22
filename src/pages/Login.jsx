@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { replace, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-function Login() {
+function Login({ onLogin }) {
   const [ email, setEmail ] = useState("")
   const [ password, setPassword ] = useState("")
   const [ error, setError ] = useState("")
@@ -32,6 +32,7 @@ function Login() {
         return
       }
 
+      onLogin(data)
       navigate("/", { replace: true })
 
       console.log("Logged in:", data)
