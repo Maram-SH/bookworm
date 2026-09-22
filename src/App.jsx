@@ -11,8 +11,30 @@ import "./App.css"
 
 function App() {
   const [ books, setBooks ] = useState([])
+  const [ user, setUser ] = useState(null)
 
   useEffect(() => {
+    fetch("http://localhost:3000/api/me", {
+      credentials: "include"
+    })
+    .then((response) => {
+      if (!response.ok) {
+        return null
+      }
+
+      return response.json()
+    })
+    .then((data) => {
+      setUser(data)
+    })
+    .catch(error => console.log(error))
+  }, [])
+
+  useEffect(() => {
+    if (!user) {
+      return
+    }
+
     fetch("http://localhost:3000/api/books", {
       credentials: "include"
     })
@@ -20,7 +42,7 @@ function App() {
     .then((data) => {
       setBooks(data)
     })
-  }, [])
+  }, [user])
 
   function handleProgressChange(id, newCurrentPage) {
     fetch(`http://localhost:3000/api/books/${id}`, {
