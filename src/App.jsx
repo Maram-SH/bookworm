@@ -6,7 +6,9 @@ import Library from "./pages/Library"
 import AddBook from "./pages/AddBook"
 import Login from "./pages/Login"
 import Register from "./pages/Register"
+
 import ProtectedRoute from "./components/ProtectedRoute"
+import NavBar from "./components/NavBar"
 
 import "./App.css"
 
@@ -161,13 +163,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <nav className="navbar">
-        <Link to="/">Dashboard</Link>
-        <Link to="/library">Library</Link>
-        <Link to="/add_book">Add Book</Link>
-        <Link to="/login">Log In</Link>
-        <Link to="/register">Register</Link>
-      </nav>
+      <NavBar user={user} onLogOut={setUser} />
 
       <Routes>
         <Route 
