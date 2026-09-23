@@ -72,7 +72,7 @@ function Dashboard({ books }) {
         }
       </div>
       
-      {!books ? (<p>Nothing to see here. Add books to view statistics!</p>) : (
+      {!totalCount ? (<p>Nothing to see here. Add books to view statistics!</p>) : (
         <div>
           <h2>Reading Statistics</h2>
           <div>
